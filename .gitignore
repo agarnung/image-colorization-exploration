@@ -1,0 +1,15 @@
+# Compiled source 
+*.o
+
+# Executables
+*
+!*.*
+!*/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Custom
+*.pth
