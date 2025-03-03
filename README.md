@@ -1,6 +1,27 @@
 # image-colorization-exploration
 An attempt to colorize my old photos
 
+# Usage Instructions
+
+If you want to fork my project and explore new or existing techniques yourself, simply create a virtual environment and install the necessary dependencies as follows:
+
+## 1. Clone the project and create a virtual environment
+```bash
+git clone https://github.com/agarnung/image-colorization-exploration.git
+cd image-colorization-exploration
+python3 -m venv venv
+source venv/bin/activate  # On Windows use: venv\Scripts\activate
+```
+
+## 2. Install the mask creation application
+```bash
+cd colorMaskerApp && pip install -e .
+```
+
+## 3. Run the application from anywhere (inside the `venv`) with the grayscale image you want to colorize
+```bash
+colormaskerapp --input "path/to/grayscale.png"
+
 # Main article
 
 [LINK MY ARTICLE -  QUE SERÁ BÁSICAMENTE EL MISMO MARKDOWN CON ALGUNOS RESULTADOS MÁS...]
@@ -55,6 +76,8 @@ De las incontables alternativas arquitectónicas vamos a diseñar la nuestras pr
 - GAN + U-Net en Lab https://github.com/moein-shariatnia/Deep-Learning/tree/main/Image%20Colorization%20Tutorial(ºº
 - Con VAE https://github.com/alexandrasalem/image_colorization
 - Awesome list (sobre todo ver 2.1. based on scribble) https://github.com/MarkMoHR/Awesome-Image-Colorization?tab=readme-ov-file#21-based-on-scribble
+
+- Mask CLI app inspired in https://github.com/aGIToz/PiMask/tree/main.
 
 # TODO
 - Pequeña app mínima como la de https://github.com/aGIToz/PiMask para colorizar y guardar las máscaras de trazos RGB que se usaran. Mediante CLI poner a pruebas los métodos.

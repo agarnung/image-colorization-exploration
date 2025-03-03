@@ -13,3 +13,6 @@ __pycache__/
 
 # Custom
 *.pth
+color/
+colormaskerapp/colormaskerapp.egg-info/*
+colormaskerapp/colormaskerapp/colormaskerapp.egg-info/*
