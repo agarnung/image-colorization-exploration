@@ -11,8 +11,6 @@ setup(
     install_requires=[
         'numpy',           # Para manejo de arrays y operaciones numéricas
         'opencv-python',   # Para procesamiento de imágenes
-        'pynput',          # Para manejo de entrada por teclado (reemplaza a keyboard)
-        'PySimpleGUI',     # Para interfaces gráficas simples
     ],
     entry_points={
         'console_scripts': [
