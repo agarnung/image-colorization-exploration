@@ -49,6 +49,7 @@ Donde:
 - $\Delta I_a^t$ y $\Delta I_b^t$ son los laplacianos en la iteración $t$.
 
 Además, para computar el Laplaciano $\Delta I$, lo aproximamos usando un kernel de convolución:
+
 $$
 \Delta I \approx \begin{bmatrix}
 0 & 1 & 0 \\
