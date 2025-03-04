@@ -9,16 +9,16 @@ setup(
     license='MIT',
     packages=find_packages(),
     install_requires=[
-        'numpy',           # Para manejo de arrays y operaciones numéricas
-        'opencv-python',   # Para procesamiento de imágenes
+        'numpy',         
+        'opencv-python',  
     ],
     entry_points={
         'console_scripts': [
-            'colormaskerapp=colormaskerapp.cli:main',  # Punto de entrada para la CLI
+            'colormaskerapp=colormaskerapp.cli:main', 
         ],
     },
     setup_requires=[
-        'setuptools>=42',  # Asegura que setuptools esté actualizado
+        'setuptools>=42', 
     ],
-    python_requires='>=3.6',  # Compatibilidad con Python 3.6 o superior
+    python_requires='>=3.6',
 )
