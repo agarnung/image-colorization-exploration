@@ -11,6 +11,7 @@ setup(
     install_requires=[
         'numpy',         
         'opencv-python',  
+        'PySimpleGUI'
     ],
     entry_points={
         'console_scripts': [

@@ -1,6 +1,10 @@
 # image-colorization-exploration
 An attempt to colorize my old photos
 
+![res](./assets/res.png)
+
+![res2](./assets/res2.png)
+
 # Usage Instructions
 
 If you want to fork my project and explore new or existing techniques yourself, simply create a virtual environment and install the necessary dependencies as follows:
@@ -20,7 +24,7 @@ cd colorMaskerApp && pip install -e .
 
 ## 3. Run the application from anywhere (inside the `venv`) with the grayscale image you want to colorize
 ```bash
-colormaskerapp --input "path/to/grayscale.png"
+colormaskerapp --input "path/to/grayscale.png" --output "path/to/result/mask.png"
 
 # Main article
 

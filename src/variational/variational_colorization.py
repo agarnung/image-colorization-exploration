@@ -52,17 +52,32 @@ def load_mask_as_lab(mask_path, target_shape):
 def colorize_image(image_path, mask_path, output_path):
     gray_image = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
     mask_rgb = cv2.imread(mask_path, cv2.IMREAD_COLOR)
+
+    # Redimensionamos la imagen de escala de grises
     l_channel = cv2.resize(gray_image, (512, 512)).astype(np.uint8)  # L en 0-255
-    
+    mask_rgb = cv2.resize(mask_rgb, (512, 512))  # Ajustamos el tamaño de la máscara
+
+    # Creamos una versión en 3 canales de la imagen en escala de grises
+    gray_3channel = cv2.cvtColor(l_channel, cv2.COLOR_GRAY2BGR)
+
+    # Creamos la máscara combinada: los píxeles que no sean (0,0,0) en la máscara sobrescriben la imagen gris
+    mask_binary = np.any(mask_rgb != [0, 0, 0], axis=-1)  # Detectar píxeles no negros
+    maskcombined = gray_3channel.copy()
+    maskcombined[mask_binary] = mask_rgb[mask_binary]  # Sobreescribimos solo donde la máscara no es negra
+
+    # Aquí deberías definir `load_mask_as_lab` y `variational_colorization`
     ab_hint, mask = load_mask_as_lab(mask_path, l_channel.shape)
     a_colorized, b_colorized = variational_colorization(l_channel, ab_hint, mask)
-    
+
+    # Convertimos la imagen a color usando el modelo Lab
     lab_colorized = np.stack([l_channel, a_colorized, b_colorized], axis=-1)
     colorized_image = cv2.cvtColor(lab_colorized, cv2.COLOR_Lab2BGR)
-    
+
+    # Guardamos la imagen final
     cv2.imwrite(output_path, colorized_image)
-    cv2.imshow("Original Image", gray_image)
-    cv2.imshow("Mask", mask_rgb)
+
+    # Mostramos las imágenes
+    cv2.imshow("Mask Combined", maskcombined)
     cv2.imshow("Final Colorized Image", colorized_image)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
