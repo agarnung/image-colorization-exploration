@@ -5,7 +5,7 @@ Este modelo variacional se basa en la minimización de un funcional de energía 
 Dada una imagen en escala de grises $I_L(x, y)$, que representa el canal de luminancia $L$ del espacio de color Lab, queremos encontrar los canales de color de dicho espacio, $I_a(x, y)$ y $I_b(x, y)$, que minimicen el siguiente funcional:
 
 $$
-E(I_a, I_b) = \underbrace{\lambda \int_\Omega \left( |\nabla I_a|^2 + |\nabla I_b|^2 \right) \, dx \, dy}_{\text{Término de suavizado}} + \underbrace{\int_\Omega \left( \gamma (I_a - \tilde{I}_a)^2 + \gamma (I_b - \tilde{I}_b)^2 \right) \, dx \, dy}_{\text{Término de fidelidad}} = R(I_a, I_b) + D(I_a, I_b)
+E(I_a, I_b) = \lambda \int_\Omega \left( |\nabla I_a|^2 + |\nabla I_b|^2 \right) \ dx \ dy + \int_\Omega \left( \gamma (I_a - \tilde{I}_a)^2 + \gamma (I_b - \tilde{I}_b)^2 \right) \ dx \ dy = R(I_a, I_b) + D(I_a, I_b)
 $$
 
 Donde:
