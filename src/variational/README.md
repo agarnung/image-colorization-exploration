@@ -22,6 +22,7 @@ El **data term** $D(I_a, I_b)$ asegura que los canales de color $I_a$ e $I_b$ se
 Para minimizar el funcional, recurrimos a la teoría del cálculo variacional y derivamos sus ecuaciones de Euler-Lagrange, que son ecuaciones diferenciales parciales (EDPs) que describen cómo deben evolucionar $I_a$ e $I_b$ para minimizar la energía.
 
 Las ecuaciones de Euler-Lagrange para $I_a$ e $I_b$ son:
+
 $$
 \lambda \Delta I_a - \gamma (I_a - \tilde{I}_a) = 0
 $$
@@ -38,6 +39,7 @@ Para resolver las ecuaciones de Euler-Lagrange numéricamente, adoptamos un enfo
 $$
 I_a^{t+1}(x, y) = I_a^t(x, y) + \alpha \left( \lambda \Delta I_a^t - \gamma (I_a^t - \tilde{I}_a) \right)
 $$
+
 $$
 I_b^{t+1}(x, y) = I_b^t(x, y) + \alpha \left( \lambda \Delta I_b^t - \gamma (I_b^t - \tilde{I}_b) \right)
 $$
@@ -58,9 +60,11 @@ $$
 Para respetar las condiciones iniciales proporcionadas por el usuario (trazas de color), integramos condiciones de contorno de Dirichlet en las regiones conocidas $\Omega \setminus D$, donde $D$ es la zona a colorizar, e introducimos una máscara $M(x, y)$ que indica las regiones donde los valores de $I_a$ e $I_b$ deben permanecer fijos (es decir, iguales a $\tilde{I}_a$ y $\tilde{I}_b$).
 
 Las actualizaciones se modifican para incluir la máscara:
+
 $$
 I_a^{t+1}(x, y) = (1 - M(x, y)) \cdot \left( I_a^t(x, y) + \alpha \left( \lambda \Delta I_a^t - \gamma (I_a^t - \tilde{I}_a) \right) \right) + M(x, y) \cdot \tilde{I}_a
 $$
+
 $$
 I_b^{t+1}(x, y) = (1 - M(x, y)) \cdot \left( I_b^t(x, y) + \alpha \left( \lambda \Delta I_b^t - \gamma (I_b^t - \tilde{I}_b) \right) \right) + M(x, y) \cdot \tilde{I}_b
 $$
