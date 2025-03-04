@@ -19,7 +19,7 @@ El **regularizador** $R(I_a, I_b)$ penaliza las variaciones bruscas en los canal
 
 El **data term** $D(I_a, I_b)$ asegura que los canales de color $I_a$ e $I_b$ se mantengan cercanos a los valores de referencia $\tilde{I}_a$ y $\tilde{I}_b$ (a los trazos o indicaciones del usuario). El parámetro $\gamma$ controla cuánto se prioriza la fidelidad a las pistas de color.
 
-Para minimizar el funcional, recurrimos a la teoría del cálculo variacional y derivamos sus ecuaciones de Euler-Lagrange, que son ecuaciones diferenciales parciales (EDPs) que describen cómo deben evolucionar $I_a$ e $I_b$ para minimizar la energía.
+Para minimizar el funcional, recurrimos a la teoría del cálculo variacional y derivamos sus ecuaciones de Euler-Lagrange, que son ecuaciones diferenciales parciales (PDES) que describen cómo deben evolucionar $I_a$ e $I_b$ para minimizar la energía.
 
 Las ecuaciones de Euler-Lagrange para $I_a$ e $I_b$ son:
 
