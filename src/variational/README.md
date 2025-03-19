@@ -75,3 +75,7 @@ Donde:
 - $M(x, y) = 0$ en las regiones donde se permite la difusión del color.
 
 Sin esta imposición, el algoritmo perdería precisión y control, resultando en colores incorrectos o no deseados. Por lo tanto, esta restricción no solo es matemáticamente necesaria, sino también práctica para obtener resultados útiles y coherentes.
+
+# References
+
+- Mask CLI app inspired by https://github.com/aGIToz/PiMask/tree/main.
