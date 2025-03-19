@@ -16,7 +16,6 @@ We use two approaches for the colorization task:
 - A Deep Learning aproach (see this(README DL)): blablabla
 [INSERT GIF similar TAKEN FROM https://miro.medium.com/v2/resize:fit:128/format:webp/1*OBfeMpUwCDdWdhT9g8u_Aw.gif]
 
-
 # Usage Instructions
 
 If you want to fork my project and explore new or existing techniques yourself, simply create a virtual environment and install the necessary dependencies as follows:
