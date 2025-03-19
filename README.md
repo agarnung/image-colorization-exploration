@@ -14,6 +14,7 @@ We use two approaches for the colorization task:
 ![res2](./assets/res2.png)
 
 - A Deep Learning aproach (see this(README DL)): blablabla
+
 [INSERT GIF similar TAKEN FROM https://miro.medium.com/v2/resize:fit:128/format:webp/1*OBfeMpUwCDdWdhT9g8u_Aw.gif]
 
 # Usage Instructions
