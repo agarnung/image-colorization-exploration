@@ -27,10 +27,10 @@ Tanto los métodos tradicionales como los de3 prendizaje automático incorporan 
 El esfuerzo invertido en la colorización de imágenes ha cambiado infinitamente con el uso del DL. Especialmente, se han diseñado [metologías](https://towardsdatascience.com/colorizing-black-white-images-with-u-net-and-conditional-gan-a-tutorial-81b2df111cd8/) eficientes de entrenamiento con datasets más bien escuetos que proporcionan resultados increíbles. Unas de las arquitecturas más prometedoras es la GAN (Generative Adversarial Network). 
 
 Como mencionan en [este artículo](https://towardsdatascience.com/colorizing-black-white-images-with-u-net-and-conditional-gan-a-tutorial-81b2df111cd8/), [Image-to-Image Translation with Conditional Adversarial Networks paper](https://arxiv.org/abs/1611.07004), which may be known by the name **pix2pix**, dan un enfoque diferente a los clásicos de solo clasificación o regresión y proposed a general solution to many image-to-image tasks in DL which one of those was colorization. In this approach two losses are used: 
-- L1 loss, which makes it a regression task
+- Huber loss, which makes it a regression task
 - An adversarial (GAN) loss, which helps to solve the problem in an unsupervised manner (by assigning the outputs a number indicating how "real" they look!).
 
-Así, primero seguiremos los pasos de [Image-to-Image Translation with Conditional Adversarial Networks paper](https://arxiv.org/abs/1611.07004) y construiremos una red GAN conditional con una pérdida L1 adicional.
+Así, primero seguiremos los pasos de [Image-to-Image Translation with Conditional Adversarial Networks paper](https://arxiv.org/abs/1611.07004) y construiremos una red GAN conditional con una pérdida Huber adicional.
 
 > [!INFORMATION]
 > ¿Cómo funciona una red GAN? Esta está compuesta de un modelo generador y otro discriminador, que colaboran juntos para aprender cómo resolver un problema dado.
@@ -95,30 +95,100 @@ Ground truth (imágenes a color reales):
 
 ![condGAN](../../assets/condGAN.png)
 
-## L1 Loss Function
+## Huber Loss Function
 
-Aún necesitamos otra pérdida, to further help the models and introduce some supervision in our task. Usamos la pérdida L1 (o Mean Absolute Error) of the predicted colors compared with the actual colors; aquí está nuestro paso de aprendizaje supervisado.  The loss is the following:
+Aún necesitamos otra pérdida, to further help the models and introduce some supervision in our task. Usamos la pérdida Huber, que es un equilibrio inteligencte entre las propiedades de L1 (o Mean Absolute Error) y L2 (o Mean Squared Error) of the predicted colors compared with the actual colors; aquí está nuestro paso de aprendizaje supervisado.  The loss is the following:
 
-L_L1(G) = E_x,y,z[||y - G(x, y||_1] 
+LHuber​(G)=Ex,y,z​[i∑​{21​(yi​−G(x,yi​))2δ⋅(∣yi​−G(x,yi​)∣−2δ​)​si ∣yi​−G(x,yi​)∣≤δsi ∣yi​−G(x,yi​)∣>δ​]
 
-The L1 Loss is preferred over L2 loss (or mean squared error) because it reduces that effect of producing gray-ish images (es más robusta a outliers y tiende a sobre-suavizar menos )
+- δ → 0: Se aproxima a L1 (MAE) para todos los errores
+
+- δ → ∞: Se aproxima a L2 (MSE) para todos los errores
+
+The L1 Loss is usually preferred over L2 loss (or mean squared error) because it reduces that effect of producing gray-ish images (es más robusta a outliers y tiende a sobre-suavizar menos ). SIn embargo, HUber loss usa L1  para errores pequeños < delta (Robustez frente a outliers y bordes preservados), mientras que usa L2  para errores grandes >=delta (Suaviza gradientes y favorece convergencia estable).
+
 
 > [!NOTE]
-> "Sobresuavizar" en colorización puede adoptar el significado de "engrisecer".
+> "Sobre-suavizar" en colorización puede adoptar aquí el significado de "sobre-engrisecer".
 
-## FInal Loss
+## Perceptual Loss
+
+Agregamos una Pérdida Perceptual (usando VGG16) para:  
+- **Mejorar coherencia semántica** (objetos reconocibles)  
+- **Preservar estructuras** (bordes/texturas realistas)  
+- **Reducir artefactos** (manchas/colores antinaturales)  
+
+**Mecanismo:**  
+1. Extrae features de capas intermedias de VGG (relu2_2, relu3_3)  
+2. Compara features entre imágenes predichas/reales con L1  
+3. Peso recomendado: `λ=10-20` (balance con otras pérdidas)
+
+## Final Loss
 
 Combinando ambas:
 
-G* = argminGmaxD L_cGAN(G, D) + lambda*L_l1(G),
+G* = argminGmaxD L_cGAN(G, D) + lambda*L_Huber(G),
 
-where λ is a coefficient to balance the contribution of the two losses to the final loss (of course the discriminator loss does not involve the L1 loss).
+where λ is a coefficient to balance the contribution of the two losses to the final loss (of course the discriminator loss does not involve the Huber loss).
+
+Nótese que cGAN, el objetivo es un juego adversarial:
+
+- Discriminador (D): Busca maximizar su habilidad para distinguir entre datos reales y generados (maximiza L_cGAN). Que quiera maximizar su esperanza (el promedio sobre todos los datos posibles de una distribución) significa que quiere estar los más seguro posible de sus decisiones (aparte de que sean ciertas).
+
+- Generador (G): Busca minimizar la capacidad de D de detectar sus salidas (minimiza L_cGAN) y, además, reduce el error Huber (para mantener coherencia con los datos reales).
 
 > [!NOTE]
 > ¿Y si usáramos solamente la L1 loss y no la GAN loss?
-> Como bien notan [aquí](https://towardsdatascience.com/colorizing-black-white-images-with-u-net-and-conditional-gan-a-tutorial-81b2df111cd8/), If we use L1 loss alone, the model still learns to colorize the images but it will be conservative and most of the time uses colors like "gray" or "brown" because when it doubts which color is the best , it takes the average and uses these colors to reduce the L1 loss as much as possible.
+> Como bien notan [aquí](https://towardsdatascience.com/colorizing-black-white-images-with-u-net-and-conditional-gan-a-tutorial-81b2df111cd8/), If we use Huber loss alone, the model still learns to colorize the images but it will be conservative and most of the time uses colors like "gray" or "brown" because when it doubts which color is the best , it takes the average and uses these colors to reduce the Huber loss as much as possible.
 
-A
+## Generador
+
+Usamos una U-Net como generador de la GAN. Originalmente fue diseñada para segmentación de imágenes médicas. Pero en este contexto es la que aprende a "colorear" las imagenes en gris de su entrada. Estamos aprovechando su natural capacidad de extraer características (globales y locales) ricas de las imágenes.
+
+La U-Net sigue una estructura en forma de U:
+
+- Downsampling (Compresión): Reduce la resolución de la imagen mientras extrae características.
+
+- Bottleneck (Parte más profunda): Representación comprimida de la imagen.
+
+- Upsampling (Expansión): Vuelve a aumentar la resolución, generando la imagen de salida.
+
+- Skip connections: Conectan capas de compresión con capas de expansión (saltándose conexiones) para recuperar detalles.
+
+![unet](../../assets/unet.png)
+
+En el código, la U-Net se construye empezando desde el punto más bajo de la U y agregando módulos de downsampling y upsampling hasta completar la estructura (e.g. Input (256x256) => Down 1 (128x128) => ... => Down n (2x2) => Bottleneck (1x1) => Up n (2x2) => ... => Up 1 (256x256))
+
+### Changing the backbone of the Generator
+
+Aunque no se lleva a cabo, se recomienda lee la idea mencionada en [este trabajo](https://github.com/moein-shariatnia/Deep-Learning/tree/main/Image%20Colorization%20Tutorial), donde se pre-entrenda un generator separately in a supervised and deterministic manner to avoid the problem of "the blind leading the blind" in the GAN game where neither generator nor discriminator knows anything about the task at the beginning of training.  Actually the pretrain is done in two stages: 
+
+1. The backbone of the generator (the down sampling path) is a pretrained ResNet18 for classification (on ImageNet) 
+2. The whole generator (U-Net) will be pretrained on the task of colorization with only L1 loss. Then we will move to the combined adversarial and L1 loss, as we did in the previous section.
+
+## Discriminador
+
+El discriminador en esta GAN tiene la tarea de diferenciar entre imágenes reales y falsas generadas por la U-Net. Usamos un **Patch Discriminator** en lugar de un discriminador estándar. ¿En qué consiste?
+
+En una GAN clásica, el discriminador devuelve un único número que indica si la imagen completa es real o falsa. En un Patch Discriminator, en cambio:
+
+- Divide la imagen en pequeños parches (por ejemplo, de 70x70 píxeles).
+- Evalúa cada parche por separado, en lugar de toda la imagen.
+- Devuelve una matriz (ej. devolverá una matriz de 30×30 valores; cada salida del discriminador evalúa un parche de 70x70 dentro de la imagen), donde cada valor representa la probabilidad de autenticidad de un parche. 
+
+Esto permite enfocarse en detalles locales en lugar de juzgar la imagen "como un todo", evita que el generador "engañe" con "trucos" globales, menos convenientes que los locales, al discriminador, y mejorar la calidad y coherencia de la colorización de manera más detallada.
+
+El PatchDiscriminator está construido por diferentes bloques repetitivos:
+
+1. Conv2D: Extrae características con filtros convolucionales.
+2. BatchNorm: Normaliza los valores para estabilidad.
+3. LeakyReLU: Activa las neuronas con una función no lineal.
+
+Con dos excepciones:
+
+- El primer y último bloque NO tienen normalización (porque la primera capa maneja la entrada en crudo y la última capa debe mantener la salida sin alteraciones).
+
+- La última capa tampoco tiene activación (la activación se maneja en la función de pérdida).
 
 # Features
 
