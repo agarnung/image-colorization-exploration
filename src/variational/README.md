@@ -2,6 +2,25 @@ Este modelo variacional se basa en la minimización de un funcional de energía 
 - Un **término de suavizado o regularización**, encargado de difundir el color por los objetos de la imagen.
 - Un **término de fidelidad de datos**, que se encarga de que los colores impuestos por el usuario se mantengan consistentes con el resultado final.
 
+# Usage
+
+Just run the script with the specified mask, e.g. from `/opt/image-colorization-exploration/src/variational`:
+
+```py
+python3 variational_colorization.py --input ../../assets/peppers512.png --mask ../../assets/mask_peppers.png --output ../../assets/peppers_colorized.png
+```
+
+You can parametrize and play with the model modifying the parameters directly changing the source code.
+
+This will save the colorized result:
+
+| ORIGINAL | MASK | COLORIZED |
+|----------|------|-----------|
+| <img src="../../assets/peppers512.png" width="400"> | <img src="../../assets/mask_peppers.png" width="400"> | <img src="../../assets/peppers_colorized.png" width="400"> |
+| <img src="../../assets/jpg" width="400"> | <img src="../../assets/mask_cells.png" width="400"> | <img src="../../assets/cells_colorized.png" width="400"> |
+
+# Theory
+
 Dada una imagen en escala de grises $I_L(x, y)$, que representa el canal de luminancia $L$ del espacio de color Lab, queremos encontrar los canales de color de dicho espacio, $I_a(x, y)$ y $I_b(x, y)$, que minimicen el siguiente funcional:
 
 $$
