@@ -17,7 +17,7 @@ This will save the colorized result:
 | ORIGINAL | MASK | COLORIZED |
 |----------|------|-----------|
 | <img src="../../assets/peppers512.png" width="400"> | <img src="../../assets/mask_peppers.png" width="400"> | <img src="../../assets/peppers_colorized.png" width="400"> |
-| <img src="../../assets/jpg" width="400"> | <img src="../../assets/mask_cells.png" width="400"> | <img src="../../assets/cells_colorized.png" width="400"> |
+| <img src="../../assets/cells.jpg" width="400"> | <img src="../../assets/mask_cells.png" width="400"> | <img src="../../assets/cells_colorized.png" width="400"> |
 
 # Theory
 
