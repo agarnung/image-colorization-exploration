@@ -1,10 +1,12 @@
 # colorMaskerApp
 
-El directorio colormaskerapp/ de aquí dentro es el directorio del paquete
+Esto es una sencilla herramienta CLI para crear máscaras RGB de cualquier imagen, a fin de utilizarlas postreiormente para colorizing o inpainitng, por ejemplo.
+
+Realmente puedes usar Paint, o algo así, para crear tus máscaras, pero esto verdaderamente asegura que el tamaño, los colores y sus posiciones son las requeridas.
+
+El directorio `./colormaskerapp/` de aquí dentro es el directorio del paquete.
 
 # Introducción
-
-Esto es una sencilla herramienta CLI para crear máscaras RGB de cualquier imagen, a fin de utilizarlas postreiormente para colorizing o inpainitng, por ejemplo.
 
 Hay que elegir de una paleta de color mediante click derecho, y click izquierda para dibujar, y habilitar goma pulsando b. la finalidad es crear una máscara rgb para posteriormente usarla yo para hacer colorizing. Asumamos que el negro es "no dibujado", o sea (0,0,0) es no dibujado e inicialmente está todo no dibujado (asumamos que no existe el color o trazo completamente negro). Luego el usuario dibuja lo que quiere del color que quieres los trazos que quiere,. y pulsando s lo guarda en el directorio actual bajo el bnombre que escriba con un dialog de pyqt.
 
