@@ -19,6 +19,8 @@ This will save the colorized result:
 | <img src="../../assets/peppers512.png" width="400"> | <img src="../../assets/mask_peppers.png" width="400"> | <img src="../../assets/peppers_colorized.png" width="400"> |
 | <img src="../../assets/cells.jpg" width="400"> | <img src="../../assets/mask_cells.png" width="400"> | <img src="../../assets/cells_colorized.png" width="400"> |
 
+En el primer caso se imponene las condiciones de contorno en cada iteración, en el segundo no.
+
 # Theory
 
 Dada una imagen en escala de grises $I_L(x, y)$, que representa el canal de luminancia $L$ del espacio de color Lab, queremos encontrar los canales de color de dicho espacio, $I_a(x, y)$ y $I_b(x, y)$, que minimicen el siguiente funcional:
