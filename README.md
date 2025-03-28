@@ -80,4 +80,6 @@ cd colorMaskerApp && pip install -e .
 colormaskerapp --input "path/to/grayscale.png" --output "path/to/result/mask.png"
 ```
 
-The model weights are uploaded in Releases (and it should be e.g. in /opt/image-colorization-exploration/src/dl/model/modelo_completo_500epoch.pth)
+# References
+
+Please refer to the references cited in both methods's README ([variational](./src/variational/README.md) and [DL](./src/dl/README.md)).
