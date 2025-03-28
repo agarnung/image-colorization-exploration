@@ -10,7 +10,7 @@ def laplacian(img):
 # alpha: paso de descenso gradiente, muy grande causa inestabilidad
 # gamma: mayor, menos difusión (bordes más nítidos)
 #def variational_colorization(l_channel, ab_hint, mask, lambda_=100, gamma=0.0001, alpha=0.001, iterations=10000):
-def variational_colorization(l_channel, ab_hint, mask, lambda_=2000, gamma=0.00001, alpha=0.00001, iterations=10):
+def variational_colorization(l_channel, ab_hint, mask, lambda_=100, gamma=0.0001, alpha=0.0001, iterations=2000):
     a_channel = ab_hint[:, :, 0].astype(np.float32)
     b_channel = ab_hint[:, :, 1].astype(np.float32)
     mask = mask.astype(np.float32)
@@ -22,8 +22,13 @@ def variational_colorization(l_channel, ab_hint, mask, lambda_=2000, gamma=0.000
         a_update = alpha * (lambda_ * laplacian_a - gamma * (a_channel - ab_hint[:, :, 0]))
         b_update = alpha * (lambda_ * laplacian_b - gamma * (b_channel - ab_hint[:, :, 1]))
         
-        a_channel = (1 - mask) * (a_channel + a_update) + mask * ab_hint[:, :, 0]
-        b_channel = (1 - mask) * (b_channel + b_update) + mask * ab_hint[:, :, 1]
+        # Opción 1: No imponer las condiciones de contorno en cada iteración
+        a_channel = a_channel + a_update
+        b_channel = b_channel + b_update
+        
+        # Opción 2: imposición de condiciones de contorno en cada iteración
+        #a_channel = (1 - mask) * (a_channel + a_update) + mask * ab_hint[:, :, 0]
+        #b_channel = (1 - mask) * (b_channel + b_update) + mask * ab_hint[:, :, 1]
         
         # Aplicar clamp para mantener los valores dentro del rango [-128, 127]
         a_channel = np.clip(a_channel, -128, 127)
