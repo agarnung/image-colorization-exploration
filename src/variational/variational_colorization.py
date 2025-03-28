@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+import argparse
 
 def laplacian(img):
     kernel = np.array([[0, 1, 0], [1, -4, 1], [0, 1, 0]], dtype=np.float32)
@@ -8,7 +9,8 @@ def laplacian(img):
 # Mayor lambda: más difusión y más rapida
 # alpha: paso de descenso gradiente, muy grande causa inestabilidad
 # gamma: mayor, menos difusión (bordes más nítidos)
-def variational_colorization(l_channel, ab_hint, mask, lambda_=100, gamma=0.0001, alpha=0.001, iterations=10000):
+#def variational_colorization(l_channel, ab_hint, mask, lambda_=100, gamma=0.0001, alpha=0.001, iterations=10000):
+def variational_colorization(l_channel, ab_hint, mask, lambda_=2000, gamma=0.00001, alpha=0.00001, iterations=10):
     a_channel = ab_hint[:, :, 0].astype(np.float32)
     b_channel = ab_hint[:, :, 1].astype(np.float32)
     mask = mask.astype(np.float32)
@@ -83,7 +85,11 @@ def colorize_image(image_path, mask_path, output_path):
     cv2.destroyAllWindows()
 
 if __name__ == "__main__":
-    image_path = "./peppers512.png"
-    mask_path = "./mask.png"
-    output_path = "./colorized_result.png"
-    colorize_image(image_path, mask_path, output_path)
+    parser = argparse.ArgumentParser(description='Colorización variacional de imágenes')
+    parser.add_argument('--input', required=True, help='Ruta de la imagen en escala de grises')
+    parser.add_argument('--mask', required=True, help='Ruta de la máscara de color')
+    parser.add_argument('--output', required=True, help='Ruta de salida para la imagen colorizada')
+    
+    args = parser.parse_args()
+    
+    colorize_image(args.input, args.mask, args.output)
