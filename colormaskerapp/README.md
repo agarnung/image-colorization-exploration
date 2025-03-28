@@ -14,7 +14,7 @@ Hay que elegir de una paleta de color mediante click derecho, y click izquierda 
 
 1. Activate your venv (optional) and install dependencies (see **Thoubleshooting** below).
 2. Desde el directorio raíz /opt/image-colorization-exploration/colormaskerapp install the module in editable mode (for development) with `pip install -e .` or in user mode (prefered) with `pip install .`. Esto instalará el paquete y sus dependencias, además de registrar el comando CLI definido en `entry_points.txt`.
-3. Run the application with `colormaskerapp --input /home/alejandro/Imágenes/uneven_ilumination/2.jpg --output ./mask_cells.jpg`.
+3. Run the application with `colormaskerapp --input /home/alejandro/Imágenes/uneven_ilumination/2.jpg --output ./mask_cells.png`.
 
 This will open the following GUI, in which you can draw your mask:
 
