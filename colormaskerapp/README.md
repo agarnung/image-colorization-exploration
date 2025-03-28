@@ -18,7 +18,7 @@ Hay que elegir de una paleta de color mediante click derecho, y click izquierda 
 
 This will open the following GUI, in which you can draw your mask:
 
-![annotator](../assets/annotator.jpg)
+![annotator](../assets/annotator.png)
 
 And when you save the mask, it will be copied into the specified path:
 
