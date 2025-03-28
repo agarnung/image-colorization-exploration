@@ -8,7 +8,7 @@ test.py /full/path/to/image.png
 
 Se guardará el resultado en el mismo path desde el que se invoca el comando. 
 
-The model weights are uploaded in Releases (and it should be e.g. in /opt/image-colorization-exploration/src/dl/model/modelo_completo_500epoch.pth). To test on [Jupyter notebook](https://github.com/agarnung/image-colorization-exploration/blob/main/src/dl/notebook.ipynb), download the prefered Release model of this repository and replace the full path of the weights in the last snippet, if needed.
+The model weights are uploaded in Releases (and it should be e.g. in /opt/image-colorization-exploration/src/dl/model/modelo_completo_500epoch.pth). To test on the [Jupyter notebook](https://github.com/agarnung/image-colorization-exploration/blob/main/src/dl/notebook.ipynb), download the prefered Release model of this repository and replace the full path of the weights in the last snippet, if needed.
 
 Problemas principales en el colorizig?:
 
