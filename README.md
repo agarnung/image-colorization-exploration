@@ -3,7 +3,7 @@ An attempt to colorize my old photos
 
 ## Our Solution
 
-Among the countless architectural alternatives (see [LINK TO MY ARTICLE - WHICH WILL BE BASICALLY THE SAME MARKDOWN WITH SOME ADDITIONAL RESULTS...]), we will design our own solution and train it using our own dataset. We will focus natural images.
+Among the countless architectural alternatives, we will design our own solution and train it using our own dataset. We will focus natural images, like those in the [DIV2K dataset](https://data.vision.ee.ethz.ch/cvl/DIV2K/).
 
 We use two approaches for the colorization task:
 
