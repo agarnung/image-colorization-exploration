@@ -1,4 +1,4 @@
-Este modelo de deep learning se basa en BLABLABLA.
+Este modelo de deep learning se basa en las referencias citadas.
 
 - El script test.py sirve para poner a prueba nuestro modelo de colorización con la imagen de entrada, e.g.:
 
@@ -29,6 +29,7 @@ Tanto los métodos tradicionales como los de3 prendizaje automático incorporan 
 El esfuerzo invertido en la colorización de imágenes ha cambiado infinitamente con el uso del DL. Especialmente, se han diseñado [metologías](https://towardsdatascience.com/colorizing-black-white-images-with-u-net-and-conditional-gan-a-tutorial-81b2df111cd8/) eficientes de entrenamiento con datasets más bien escuetos que proporcionan resultados increíbles. Unas de las arquitecturas más prometedoras es la GAN (Generative Adversarial Network). 
 
 Como mencionan en [este artículo](https://towardsdatascience.com/colorizing-black-white-images-with-u-net-and-conditional-gan-a-tutorial-81b2df111cd8/), [Image-to-Image Translation with Conditional Adversarial Networks paper](https://arxiv.org/abs/1611.07004), which may be known by the name **pix2pix**, dan un enfoque diferente a los clásicos de solo clasificación o regresión y proposed a general solution to many image-to-image tasks in DL which one of those was colorization. In this approach two losses are used: 
+
 - Huber loss, which makes it a regression task
 - An adversarial (GAN) loss, which helps to solve the problem in an unsupervised manner (by assigning the outputs a number indicating how "real" they look!).
 
@@ -108,7 +109,6 @@ LHuber​(G)=Ex,y,z​[i∑​{21​(yi​−G(x,yi​))2δ⋅(∣yi​−G(x,yi
 - δ → ∞: Se aproxima a L2 (MSE) para todos los errores
 
 The L1 Loss is usually preferred over L2 loss (or mean squared error) because it reduces that effect of producing gray-ish images (es más robusta a outliers y tiende a sobre-suavizar menos ). SIn embargo, HUber loss usa L1  para errores pequeños < delta (Robustez frente a outliers y bordes preservados), mientras que usa L2  para errores grandes >=delta (Suaviza gradientes y favorece convergencia estable).
-
 
 > [!NOTE]
 > "Sobre-suavizar" en colorización puede adoptar aquí el significado de "sobre-engrisecer".
