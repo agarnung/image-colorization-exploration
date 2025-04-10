@@ -120,6 +120,18 @@ Agregamos una Pérdida Perceptual (usando VGG16) para:
 - **Preservar estructuras** (bordes/texturas realistas)  
 - **Reducir artefactos** (manchas/colores antinaturales)  
 
+## Regularización de Color 
+
+Para combatir el problema de imágenes apagadas (sobresuavizado de colores), introducimos una pérdida de color o cromaticidad que incentiva al generador a producir colores más vibrantes. Esta pérdida actúa como un regularizador que penaliza soluciones grisáceas o de bajo contraste. Al maximizar la cromaticidad, evitamos que el generador "juegue a lo seguro" con colores cercanos al gris.
+
+La cromaticidad se calcula como la norma de los canales ab en el espacio LAB:
+
+$$
+\mathcal{L}_{\text{chroma}} = -\lambda_{\text{color}} \cdot \mathbb{E}\left[\sqrt{a^2 + b^2}\right],
+$$
+
+donde `a, b`: Canales de color predichos por el generador y `λ_color`: Peso de la pérdida (empíricamente λ=10 en nuestro código).
+
 **Mecanismo:**  
 1. Extrae features de capas intermedias de VGG (relu2_2, relu3_3)  
 2. Compara features entre imágenes predichas/reales con L1  
