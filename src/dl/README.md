@@ -126,9 +126,7 @@ Para combatir el problema de imágenes apagadas (sobresuavizado de colores), int
 
 La cromaticidad se calcula como la norma de los canales ab en el espacio LAB:
 
-$$
-\mathcal{L}_{\text{chroma}} = -\lambda_{\text{color}} \cdot \mathbb{E}\left[\sqrt{a^2 + b^2}\right],
-$$
+L₍chroma₎ = −λ₍color₎ ⋅ E[√(a² + b²)]
 
 donde `a, b`: Canales de color predichos por el generador y `λ_color`: Peso de la pérdida (empíricamente λ=10 en nuestro código).
 
